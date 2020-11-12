@@ -10,28 +10,47 @@
   </ul>
 </template>
 
-<script>
-export default {
-  name: 'Types',
-  props: ['xxx'],
-  data() {//声明一个data保存当前选中的类型
-    return {
-      type: '-'//'-'表示支出，‘+’表示收入
-    }
-  },
-  mounted() {
-    console.log(this.xxx)
-  },
-  method: {
-    selectType(type) {//type只能是‘-’和‘+’重的一个，否则保存
-      if (type !== '-' && type !== '+') {
-        throw new Error('type is unknown')
-      }
-      this.type = type
-    }
-  }
+<script lang="ts">
+import Vue from 'vue'
+import {Component} from 'vue-property-decorator';
+//文档照抄
 
-};
+@Component({
+  props: {
+    propMessage: String//拥有一个叫propsMessage的props，类型是string
+  }
+})//告诉vue这是一个组件。type自动处理成data,seletType自动methods
+export default class Types extends Vue {
+  type = '-'//声明data，写的任何赋值语句都会变成实例中的属性，实例属性默认变成data
+  helloMsg = 'Hello, '+ this.propMessage;
+  selectType(type: string) {//ts语法：type只能是‘-’和‘+’重的一个，否则保存,不写具体类型会报错
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknown')
+    }
+    this.type = type
+  }
+}
+// export default {
+// name: 'Types',
+// props: ['xxx'],
+// data() {//声明一个data保存当前选中的类型
+//   return {
+//     type: '-'//'-'表示支出，‘+’表示收入
+//   }
+// },
+// mounted() {
+//   console.log(this.xxx)
+// },
+// method: {
+//   selectType(type) {//type只能是‘-’和‘+’重的一个，否则保存
+//     if (type !== '-' && type !== '+') {
+//       throw new Error('type is unknown')
+//     }
+//     this.type = type
+//   }
+// }
+//
+// };
 </script>
 
 <style lang="scss" scoped>
