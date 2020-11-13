@@ -12,17 +12,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {Component} from 'vue-property-decorator';
-//文档照抄
+import {Component, Prop} from 'vue-property-decorator';
+//1 自动提示更智能
+//2 不能谁便写
+//3 编译报错
 
-@Component({
-  props: {
-    propMessage: String//拥有一个叫propsMessage的props，类型是string
-  }
-})//告诉vue这是一个组件。type自动处理成data,seletType自动methods
+@Component//告诉vue这是一个组件。type自动处理成data,seletType自动methods
 export default class Types extends Vue {
   type = '-'//声明data，写的任何赋值语句都会变成实例中的属性，实例属性默认变成data
-  helloMsg = 'Hello, '+ this.propMessage;
+ // @Prop(Number)  xxx: number |undefined;//props（number）运行时的类型。":"后的是编译时的类型
+  //@props是装饰器，意思是告诉类，后面的属性不是data；
+  // (Number)告诉vue，xxx是个number
+  //number |undefined 告诉TS xxx的类型
   selectType(type: string) {//ts语法：type只能是‘-’和‘+’重的一个，否则保存,不写具体类型会报错
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown')
