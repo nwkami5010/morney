@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 //1 自动提示更智能
 //2 不能谁便写
