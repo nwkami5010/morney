@@ -12,14 +12,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop,Watch} from 'vue-property-decorator';
 //1 自动提示更智能
 //2 不能谁便写
 //3 编译报错
 
 @Component//告诉vue这是一个组件。type自动处理成data,seletType自动methods
 export default class Types extends Vue {
-  type = '-'//声明data，写的任何赋值语句都会变成实例中的属性，实例属性默认变成data
+  @Prop()readonly  value!: string;//不用管初始值加“！”
+  //type = '-'//声明data，写的任何赋值语句都会变成实例中的属性，实例属性默认变成data
  // @Prop(Number)  xxx: number |undefined;//props（number）运行时的类型。":"后的是编译时的类型
   //@props是装饰器，意思是告诉类，后面的属性不是data；
   // (Number)告诉vue，xxx是个number
@@ -28,7 +29,14 @@ export default class Types extends Vue {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown')
     }
-    this.type = type
+    this.$emit('update:value', type)
+    //如果第一次是+第二次还是+。会触发事件，有可能事件多触发，用watch更好，事件变化时候才触发
+    //this.$emit('')
+
+ // @Watch('type')
+  //  onTypeChange(value: string){
+    ///  this.$emit('update:value',value);
+    //}
   }
 }
 // export default {

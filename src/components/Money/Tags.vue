@@ -29,6 +29,7 @@ export default class Tags extends Vue{
    }else {
      this.selectedTags.push(tag);
    }
+   this.$emit('xxx',this.selectedTags)//xxx事件触发的时候把this.selectedTags传出去
  }
 
  create() {
@@ -36,7 +37,7 @@ export default class Tags extends Vue{
    if(name === '') {
      window.alert('标签名不能为空');
 
-   }else if (this.dataSource) {
+   }else if (this.dataSource) {//不能直接push
      this.$emit('update:dataSource',
         [...this.dataSource, name]);
 
