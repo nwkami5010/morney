@@ -6,7 +6,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in dataSource" :key="tag"
-          :class="{selected: selectedTags.indexOf(tag)>=0}"
+          :class="{selected: selectedTags.indexOf(tag)>=0 }"
           @click="toggle(tag)">{{ tag }}</li>
 
     </ul>
@@ -20,12 +20,12 @@ import {Component,Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue{
  @Prop() readonly  dataSource: string[] | undefined;//只能写全局的构造函数props必须加括号
- selectedTags: string[]= [];//字符串数组
+ selectedTags: string[]= [];//字符串数组,让ts识别加上：string
 
  toggle(tag: string) {
    const index =this.selectedTags.indexOf(tag);
-   if(index >=0){
-     this.selectedTags.splice(index, 1);
+   if(index >=0){//点击的时候selectedTags已经在tag里
+     this.selectedTags.splice(index, 1);//从index开始删，数量为1
    }else {
      this.selectedTags.push(tag);
    }
@@ -58,7 +58,8 @@ export default class Tags extends Vue{
     flex-wrap: wrap;
     overflow: auto;
     > li{
-      background: #d9d9d9;
+      $bg:#d9d9d9;
+      background: $bg;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -66,6 +67,10 @@ export default class Tags extends Vue{
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      &.selected{
+        background: darken($bg,50%);
+        color: white;
+      }
     }
   }
   > .new{

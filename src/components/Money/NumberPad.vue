@@ -2,7 +2,7 @@
   <div class="numberPad">
     <div class="output">{{ output }}</div>
     <div class="buttons">
-      <button @click="inputContent">1</button>
+      <button @click="inputContent">1</button>//不要传参
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
       <button @click="remove">删除</button>
@@ -26,15 +26,15 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class NumberPad extends Vue {
-  output: string = '0';
+  output = '0';
 
-  inputContent(event: MouseEvent) {
-    const button = (event.target as HTMLButtonElement);
+  inputContent(event: MouseEvent) {//vue自动传参 event相关所有信息
+    const button = (event.target as HTMLButtonElement);//强制指定类型防止报错
     const input = button.textContent!;//！：把空的情况排除
     if(this.output.length === 16) { return;}
-    if(this.output === '0') {
+    if(this.output === '0') {//当前显示0
       if('0123456789'.indexOf(input) >= 0) {//输入的东西在0-9之剑大于0
-        this.output =input;
+        this.output =input;//把0替换成1-9
       }else{
         this.output+=input;
       }
@@ -44,7 +44,7 @@ export default class NumberPad extends Vue {
     this.output += input;
   }
   remove() {
-    if(this.output.length === 1) {
+    if(this.output.length === 1) {//删除最后一位时候作判断
       this.output = '0';
     }else {
       this.output = this.output.slice(0,-1);
@@ -72,7 +72,7 @@ export default class NumberPad extends Vue {
     padding: 9px 16px;//div高度72
     text-align: right;
     //内阴影 左右没有阴影
-    min-height: 72px;
+    height: 72px;
   }
   .buttons{
     @extend %clearFix;//继承 helper.scss里的%x,相当于复制了选择器 .buttons.%x；不会把clearfix复制一遍

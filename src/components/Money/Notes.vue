@@ -2,6 +2,7 @@
   <label class="notes">
     <span class="name">备注</span>
     <input type="text" v-model="value"  placeholder="在这里输入备注">
+
   </label>
 </template>
 
@@ -21,6 +22,7 @@ export default class Notes extends Vue{
   background:#f5f5f5;
   //display: block;//默认是inline-block
   padding-left: 16px;
+
   align-items: center;//垂直居中
   display:flex;//让输入框宽度拉长
   .name{
