@@ -26,7 +26,8 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class NumberPad extends Vue {
-  output = '0';
+  @Prop() readonly value!: number;//下文的output是string,value类型是number,不能代替，只能再声明一个内部值
+  output = this.value.toString();//output的初始值是最开始传进来的value
 
   inputContent(event: MouseEvent) {//vue自动传参 event相关所有信息
     const button = (event.target as HTMLButtonElement);//强制指定类型防止报错

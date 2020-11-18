@@ -1,6 +1,6 @@
 <template>
 <layout content-prefix="layout">
-  <NumberPad @update:value="onUpdateAmount"/>
+  <NumberPad :value.sync="record.amount"/>//:value="record.amount" @update:value="onUpdateAmount"/>
   <Types :value.sync="record.type" />//如果想给组件一个初始的值，想在更新的时候拿到最新的值
   ,用.sync 一开始可以得到value,value变化的时候触发update.value就可以了
 
