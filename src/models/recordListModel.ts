@@ -1,5 +1,5 @@
 const localStorageKeyName = 'recordList';//常量代替
-const model = {
+const recordListModel = {
   fetch() {//获取数据 as 强制规定类型为RecordItem
     return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem;
 
@@ -13,4 +13,4 @@ const model = {
     return JSON.parse(JSON.stringify(data));
   }
 };
-export default model;
+export default recordListModel;

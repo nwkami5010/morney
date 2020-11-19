@@ -19,15 +19,18 @@ import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 //import moedl from '@/model.js';//ts不能直接引入js
-import model from '@/model';
-const recordList = model.fetch()
+import recordListModel from '@/models/recordListModel';
+import tagListModel from '@/models/tagListModel';
+const recordList = recordListModel.fetch()
+// eslint-disable-next-line no-undef
+const tagList = tagListModel.fetch();
 
 
 @Component({//Components写在装饰器里，不能写下面，否则就变成data
   components: {Tags, Notes, Types, NumberPad}
 })
 export default class Money extends Vue {
-  tags=['衣','食','住','行']//改成ts以后，：换成=
+  tags= tagList//改成ts以后，：换成=
   recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') ||'[]');
   record: RecordItem = {tags: [],notes:'',type:'-',amount:0}//初始值
 
@@ -44,14 +47,14 @@ export default class Money extends Vue {
     this.record.amount= parseFloat(value);//amount是数字，parseFloat兼顾小数点
   }
   saveRecord() {
-    const deepClone: RecordItem = model.clone(this.record);
+    const deepClone: RecordItem = recordListModel.clone(this.record);
     deepClone.createdAt = new Date();
     this.recordList.push(deepClone);//点ok触发submit事件，将this.record存进recordlist
   }
    // localStorage.set('recordList',JSON.stringify(this.recordList));//重复性高。每个保存的地方都要写localStorage
   @Watch('recordList')//('recordList')
     onRecordListChange(){
-      model.save(this.recordList);
+      recordListModel.save(this.recordList);
 
     }
 
