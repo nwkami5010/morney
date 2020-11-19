@@ -20,11 +20,12 @@ body {
   color: #333;
   line-height: 1.5;
   font-family: $font-hei;
-  font-size:6px
+  font-size: 6px
 
 }
-.clearfix::after{
-  content:'';
+
+.clearfix::after {
+  content: '';
   display: block;
   clear: both;
 }
