@@ -40,9 +40,7 @@ export default class Money extends Vue {
   onUpdateNotes(value: string){
     this.record.notes= value
   }
-  onUpdateType(value: string){
-    this.record.type = value
-  }
+
   onUpdateAmount(value: string){
     this.record.amount= parseFloat(value);//amount是数字，parseFloat兼顾小数点
   }

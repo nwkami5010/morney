@@ -1,7 +1,10 @@
 <template>
   <label class="notes">
     <span class="name">备注</span>
-    <input type="text" v-model="value"  placeholder="在这里输入备注">
+    <input type="text"
+           v-model="value"
+
+           placeholder="在这里输入备注">
 
   </label>
 </template>
@@ -12,9 +15,9 @@ import  {Component,Watch} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue{
- value = '';
+ value = '';//监听value变化
  @Watch('value')//ts的watch写法
-  onValueChange(value: string){
+  onValueChange(value: string){//新 value
    this.$emit('update:value', value)
  }
 }

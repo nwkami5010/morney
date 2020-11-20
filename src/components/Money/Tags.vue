@@ -29,21 +29,22 @@ export default class Tags extends Vue{
    }else {
      this.selectedTags.push(tag);
    }
-   this.$emit('xxx',this.selectedTags)//xxx事件触发的时候把this.selectedTags传出去
+   this.$emit('update：value',this.selectedTags)//xxx事件触发的时候把this.selectedTags传出去
  }
 
- create() {
-   const name = window.prompt('请输入标签名');
-   if(name === '') {
-     window.alert('标签名不能为空');
+  create() {
+    const name = window.prompt('请输入标签名');
+    if(name === '') {
+      window.alert('标签名不能为空');
 
-   }else if (this.dataSource) {//不能直接push
-     this.$emit('update:dataSource',
-        [...this.dataSource, name]);
+    }else if (this.dataSource) {//阻止ts报错undefined
+      this.dataSource.push(name!);//不能改外部数据。阻止修改，要在dataSource前加 readonly、
+    }this.$emit('update:dataSource',//把更新datasource的请求告诉外部。外部接受事件
+        [...this.dataSource, name]);//之前的数组展开接上新的name
 
-   }
 
- }
+
+}
 }
 </script>
 
