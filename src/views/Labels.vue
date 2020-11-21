@@ -3,7 +3,7 @@
     <Layout>
       <ol class="tags">
         <li v-for="tag in tags" :key="tag">
-          <span>衣</span> <Icon name="right"/></li>//添加格式：1.shift2次，surround with 3 emmit  4 li*
+          <span>{{ tag }}</span> <Icon name="right"/></li>//添加格式：1.shift2次，surround with 3 emmit  4 li*
 
       </ol>
       <div class="createTag-wrapper">
@@ -22,12 +22,15 @@ tagListModel.fetch();
 export default class Labels extends Vue{
   tags= tagListModel.data;
 
-
-
   createTag(){
     const name = window.prompt('请输出标签名');
     if(name){
-      tagListModel.create(name)
+      const message = tagListModel.create(name);
+      if(name=== 'duplicated'){
+        window.alert('标签名重复了');
+      }else if (message === 'success'){
+        window.alert('添加成功')；
+      }
     }
 
   }
